@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-pure-module",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uzmoi/eslint-plugin-pure-module.git"
+  },
+  "keywords": [
+    "eslint"
+  ],
+  "author": "uzmoi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uzmoi/eslint-plugin-pure-module/issues"
+  },
+  "homepage": "https://github.com/uzmoi/eslint-plugin-pure-module#readme"
+}
