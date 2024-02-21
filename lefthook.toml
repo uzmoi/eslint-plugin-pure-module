@@ -1,0 +1,9 @@
+
+[pre-commit]
+parallel = true
+
+[pre-commit.commands.biome-check]
+run = "npx biome check --no-errors-on-unmatched {staged_files}"
+
+[pre-commit.commands.cSpell]
+run = "npx cspell lint --no-progress {staged_files}"

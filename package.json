@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
+    "format": "biome format . --write",
+    "build": "tsup src/index.ts",
+    "check": "biome check . && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +24,12 @@
   "bugs": {
     "url": "https://github.com/uzmoi/eslint-plugin-pure-module/issues"
   },
-  "homepage": "https://github.com/uzmoi/eslint-plugin-pure-module#readme"
+  "homepage": "https://github.com/uzmoi/eslint-plugin-pure-module#readme",
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "cspell": "^8.4.1",
+    "lefthook": "^1.6.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3"
+  }
 }
