@@ -25,8 +25,14 @@
     "url": "https://github.com/uzmoi/eslint-plugin-pure-module/issues"
   },
   "homepage": "https://github.com/uzmoi/eslint-plugin-pure-module#readme",
+  "dependencies": {
+    "@typescript-eslint/utils": "^7.0.2",
+    "esquery": "^1.5.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
+    "@types/esquery": "^1.5.3",
+    "@typescript-eslint/rule-tester": "^7.0.2",
     "cspell": "^8.4.1",
     "lefthook": "^1.6.1",
     "tsup": "^8.0.2",

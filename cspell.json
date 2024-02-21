@@ -2,5 +2,5 @@
 	"version": "0.2",
 	"useGitignore": true,
 	"ignorePaths": [".vscode", "package-lock.json"],
-	"words": ["biomejs", "lefthook", "tsup", "uzmoi"]
+	"words": ["biomejs", "esquery", "Hoge", "lefthook", "TSES", "tsup", "uzmoi"]
 }
