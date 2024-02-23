@@ -136,7 +136,7 @@ export type MessageIds = "insertCommentMessage" | "moduleSideEffectMessage";
 const optionSchema = jsonSchema.object({
 	pureFunctions: jsonSchema.array(
 		jsonSchema.string({
-			pattern: String(/^(\*|[$\w]+)(\.(\*|[$\w]+))*$/),
+			pattern: /^(\*|[$\w]+)(\.(\*|[$\w]+))*$/.source,
 		}),
 	),
 	allowCall: jsonSchema.boolean(),
