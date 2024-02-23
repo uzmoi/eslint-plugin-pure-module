@@ -32,6 +32,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "@types/esquery": "^1.5.3",
+    "@typescript-eslint/parser": "^7.0.2",
     "@typescript-eslint/rule-tester": "^7.0.2",
     "cspell": "^8.4.1",
     "lefthook": "^1.6.1",
