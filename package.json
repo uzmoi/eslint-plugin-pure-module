@@ -10,7 +10,7 @@
     "format": "biome format . --write",
     "build": "tsup src/index.ts",
     "check": "biome check . && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -31,10 +31,12 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
+    "@swc/jest": "^0.2.36",
     "@types/esquery": "^1.5.3",
     "@typescript-eslint/parser": "^7.0.2",
     "@typescript-eslint/rule-tester": "^7.0.2",
     "cspell": "^8.4.1",
+    "jest": "^29.7.0",
     "lefthook": "^1.6.1",
     "tsup": "^8.0.2",
     "typescript": "^5.3.3"
