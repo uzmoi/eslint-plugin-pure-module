@@ -18,7 +18,9 @@
     "url": "git+https://github.com/uzmoi/eslint-plugin-pure-module.git"
   },
   "keywords": [
-    "eslint"
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
   ],
   "author": "uzmoi",
   "license": "MIT",
