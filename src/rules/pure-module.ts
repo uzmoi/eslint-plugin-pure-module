@@ -131,7 +131,7 @@ const isInFunction = (
 	});
 };
 
-type MessageIds = "insertCommentMessage" | "moduleSideEffectMessage";
+export type MessageIds = "insertCommentMessage" | "moduleSideEffectMessage";
 
 const optionSchema = jsonSchema.object({
 	pureFunctions: jsonSchema.array(

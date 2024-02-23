@@ -1,7 +1,17 @@
-import { RuleTester } from "@typescript-eslint/rule-tester";
-import { name, rule } from "./pure-module";
+import { RuleTester, type TestCaseError } from "@typescript-eslint/rule-tester";
+import { type MessageIds, name, rule } from "./pure-module";
 
 const ruleTester = new RuleTester();
+
+const error = (
+	suggestions: readonly string[] = [],
+): TestCaseError<MessageIds> => ({
+	messageId: "moduleSideEffectMessage",
+	suggestions: suggestions.map((output) => ({
+		messageId: "insertCommentMessage",
+		output,
+	})),
+});
 
 ruleTester.run(name, rule, {
 	valid: [
@@ -29,47 +39,31 @@ ruleTester.run(name, rule, {
 	invalid: [
 		{
 			code: "f();",
-			errors: [{ suggestions: [{ output: "/* #__PURE__ */ f();" }] }],
+			errors: [error(["/* #__PURE__ */ f();"])],
 		},
 		{
 			code: "f``;",
-			errors: [{ suggestions: [{ output: "/* #__PURE__ */ f``;" }] }],
+			errors: [error(["/* #__PURE__ */ f``;"])],
 		},
 		{
 			code: "new Hoge;",
-			errors: [{ suggestions: [{ output: "/* #__PURE__ */ new Hoge;" }] }],
+			errors: [error(["/* #__PURE__ */ new Hoge;"])],
 			options: [{ allowNew: false }],
 		},
-		{ code: "delete object.property;", errors: [{ suggestions: [] }] },
-		{ code: "i++;", errors: [{ suggestions: [] }] },
-		{ code: "i = 1;", errors: [{ suggestions: [] }] },
-		{ code: "throw error;", errors: [{ suggestions: [] }] },
-		{ code: "await promise;", errors: [{ suggestions: [] }] },
+		{ code: "delete object.property;", errors: [error()] },
+		{ code: "i++;", errors: [error()] },
+		{ code: "i = 1;", errors: [error()] },
+		{ code: "throw error;", errors: [error()] },
+		{ code: "await promise;", errors: [error()] },
 		{
 			code: "class Hoge { static property = f(); }",
-			// prettier-ignore
 			errors: [
-				{
-					suggestions: [
-						{
-							output: "class Hoge { static property = /* #__PURE__ */ f(); }",
-						},
-					],
-				},
+				error(["class Hoge { static property = /* #__PURE__ */ f(); }"]),
 			],
 		},
 		{
 			code: "class Hoge { static { f(); } }",
-			// prettier-ignore
-			errors: [
-				{
-					suggestions: [
-						{
-							output: "class Hoge { static { /* #__PURE__ */ f(); } }",
-						},
-					],
-				},
-			],
+			errors: [error(["class Hoge { static { /* #__PURE__ */ f(); } }"])],
 			options: [{ allowInStaticBlock: false }],
 		},
 	],
