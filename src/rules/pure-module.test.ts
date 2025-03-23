@@ -64,7 +64,7 @@ ruleTester.run(name, rule, {
 		{
 			code: "class Hoge { static { f(); } }",
 			errors: [error(["class Hoge { static { /* #__PURE__ */ f(); } }"])],
-			options: [{ allowInStaticBlock: false }],
+			options: [{ allowInClassStatic: false }],
 		},
 	],
 });

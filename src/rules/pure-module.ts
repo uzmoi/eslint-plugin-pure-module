@@ -156,7 +156,7 @@ const optionSchema = jsonSchema.object({
 	allowDelete: jsonSchema.boolean(),
 	allowThrow: jsonSchema.boolean(),
 	allowAwait: jsonSchema.boolean(),
-	allowInStaticBlock: jsonSchema.boolean(),
+	allowInClassStatic: jsonSchema.boolean(),
 });
 
 export const name = "pure-module";
@@ -179,7 +179,7 @@ export const rule = createRule<[RuleOptions<typeof optionSchema>], MessageIds>({
 	create(context, optionsWithDefault) {
 		const options: RuleOptions<typeof optionSchema> = {
 			allowNew: true,
-			allowInStaticBlock: true,
+			allowInClassStatic: true,
 			...optionsWithDefault[0],
 		};
 
@@ -191,7 +191,7 @@ export const rule = createRule<[RuleOptions<typeof optionSchema>], MessageIds>({
 			if (
 				evalContext === "function" ||
 				evalContext === "module-iife" ||
-				(evalContext === "class-static" && options.allowInStaticBlock)
+				(evalContext === "class-static" && options.allowInClassStatic)
 			) {
 				return;
 			}
