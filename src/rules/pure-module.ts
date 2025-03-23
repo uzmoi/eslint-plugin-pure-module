@@ -111,6 +111,9 @@ const isPureNode = (
 	}
 };
 
+const isFunctionNode = (node: TSESTree.Node): boolean =>
+	functionNodeType.has(node.type);
+
 const functionNodeType = new Set<`${TSESTree.AST_NODE_TYPES}`>([
 	"MethodDefinition",
 	"FunctionDeclaration",
@@ -118,17 +121,24 @@ const functionNodeType = new Set<`${TSESTree.AST_NODE_TYPES}`>([
 	"ArrowFunctionExpression",
 ]);
 
-const isInFunction = (
-	ancestors: readonly TSESTree.Node[],
-	options: RuleOptions<typeof optionSchema>,
-): boolean => {
-	return ancestors.some((node) => {
-		return (
-			functionNodeType.has(node.type) ||
-			(node.type === "PropertyDefinition" && !node.static) ||
-			(options.allowInStaticBlock && node.type === "StaticBlock")
-		);
-	});
+type EvalContext = "module" | "module-iife" | "class-static" | "function";
+
+const getEvalContext = (ancestors: readonly TSESTree.Node[]): EvalContext => {
+	for (const node of ancestors) {
+		if (node.type === "CallExpression" && isFunctionNode(node.callee)) {
+			return "module-iife";
+		}
+		if (isFunctionNode(node)) {
+			return "function";
+		}
+		if (node.type === "PropertyDefinition" && !node.static) {
+			return "function";
+		}
+		if (node.type === "StaticBlock") {
+			return "class-static";
+		}
+	}
+	return "module";
 };
 
 export type MessageIds = "insertCommentMessage" | "moduleSideEffectMessage";
@@ -177,7 +187,12 @@ export const rule = createRule<[RuleOptions<typeof optionSchema>], MessageIds>({
 			if (isPureNode(node, context.sourceCode, options)) {
 				return;
 			}
-			if (isInFunction(context.sourceCode.getAncestors(node), options)) {
+			const evalContext = getEvalContext(context.sourceCode.getAncestors(node));
+			if (
+				evalContext === "function" ||
+				evalContext === "module-iife" ||
+				(evalContext === "class-static" && options.allowInStaticBlock)
+			) {
 				return;
 			}
 
