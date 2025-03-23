@@ -131,8 +131,8 @@ const getEvalContext = (ancestors: readonly TSESTree.Node[]): EvalContext => {
 		if (isFunctionNode(node)) {
 			return "function";
 		}
-		if (node.type === "PropertyDefinition" && !node.static) {
-			return "function";
+		if (node.type === "PropertyDefinition") {
+			return node.static ? "class-static" : "function";
 		}
 		if (node.type === "StaticBlock") {
 			return "class-static";

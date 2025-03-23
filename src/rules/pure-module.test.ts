@@ -21,6 +21,7 @@ ruleTester.run(name, rule, {
 		"const o = { f() { sideEffect() } };",
 		"class Hoge { method() { sideEffect(); } }",
 		"class Hoge { property = sideEffect(); }",
+		"class Hoge { static property = sideEffect(); }",
 		"class Hoge { static { init(); } }",
 		"/* #__PURE__ */ f();",
 		"new Hoge;",
@@ -60,6 +61,7 @@ ruleTester.run(name, rule, {
 			errors: [
 				error(["class Hoge { static property = /* #__PURE__ */ f(); }"]),
 			],
+			options: [{ allowInClassStatic: false }],
 		},
 		{
 			code: "class Hoge { static { f(); } }",
